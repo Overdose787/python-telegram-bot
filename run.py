@@ -12,12 +12,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
-'''
-token="8700146637:AAE0hf-lNJU1L-R5hkRJfkLPpecG2RH4Kog"
-
-chatid=-1002127029136
-'''
-
 token = data.data.token
 
 chatid = data.data.chatid
