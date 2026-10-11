@@ -93,7 +93,7 @@ async def optin(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYPE
     if await sec_check(update , context , update.effective_chat.id):
         if await checkopt(update , context) == 1:
             msg = await context.bot.send_message(text="Додаю 😄" ,chat_id=chatid)
-            tracked_msg = msg.id
+            tracked_msg.append(msg.id)
             with open("friend.json" , "r" , encoding="utf-8") as f:
                friends = json.load(f)
                friends[update.effective_sender.id] = update.effective_sender.username
