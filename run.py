@@ -66,7 +66,7 @@ async def call(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYPE)
         for items in friends.values():
             rc = random.choice(emj)
             parsed += f"@{items} {rc}"
-        msg = await context.bot.send_message(text=parsed , chat_id=effective_chat.id)
+        msg = await context.bot.send_message(text=parsed , chat_id=update.effective_chat.id)
         tracked_msg.append(msg.id)
 
 async def checkopt(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYPE):
@@ -80,8 +80,8 @@ async def checkopt(update: telegram.Update , context: tge.ContextTypes.DEFAULT_T
                     chat_id=update.effective_chat.id,
                     text="Ви є в базі данних 😊")
                 tracked_msg.append(msg.message_id)
-            friends.clear()
-            return 0
+                friends.clear()
+                return 0
         msg = await context.bot.send_message(
              chat_id=update.effective_chat.id,
              text="Вас немає в базі даних🤔")
@@ -105,15 +105,15 @@ async def optin(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYPE
 async def optout(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYPE):
     if await sec_check(update , context , update.effective_chat.id):
         if await checkopt(update,context) == 0:
-            msg = await context.bot.send_message(text = "Видаляю 🤗." , chat_id=chatid)
+            msg = await context.bot.send_message(text = "Видаляю 🤗" , chat_id=chatid)
             tracked_msg.append(msg.id)
-        with open("friend.json" , "r" , encoding="utf-8") as f:
-            friends = json.load(f)
-        friends.pop(str(update.effective_sender.id))
-        with open("friend.json" , "w" , encoding="utf-8") as f:
-            json.dump(friends , f)
-        friends.clear()
-        await checkopt(update , context)
+            with open("friend.json" , "r" , encoding="utf-8") as f:
+                friends = json.load(f)
+                friends.pop(str(update.effective_sender.id))
+            with open("friend.json" , "w" , encoding="utf-8") as f:
+                json.dump(friends , f)
+                friends.clear()
+            await checkopt(update , context)
 
 async def poll(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYPE):
     if await sec_check(update , context , update.effective_chat.id):
