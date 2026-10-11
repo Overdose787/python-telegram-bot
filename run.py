@@ -118,7 +118,7 @@ async def optout(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYP
 async def poll(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYPE):
     if await sec_check(update , context , update.effective_chat.id):
         await call(update , context)
-        msg = await context.bot.send_poll(chat_id=chatid , question="Хто грать? 📢📢📢" , options=["+","-"])
+        msg = await context.bot.send_poll(chat_id=chatid , is_anonymous=True, question="Хто грать? 📢📢📢" , options=["+","-"])
         tracked_msg.append(msg.id)
 
 app.add_handler(tge.CommandHandler("co" , checkopt))
