@@ -15,18 +15,20 @@ def addmsg(id,dct):
 async def live_msg(dct,context: telegram.ext.ContextTypes.DEFAULT_TYPE, delete_from = 45 , remove_after = 47):
 
      while True:
-
+        print("starting routine message checkup")
         oldtime = int(time.strftime("%H" , time.localtime()))
-        
+
         await asyncio.sleep(900)
         
         if len(dct) == 0:
+            print("nothing to check up , skipping")
             continue
 
         total = int(time.strftime("%H" , time.localtime())) - oldtime
 
         if total != 0:
             keylist = []
+            print(dct)
             for key , value in dct.items():
                 dct[key] = value + 1
                 if value >= delete_from and value < remove_after:
@@ -38,4 +40,4 @@ async def live_msg(dct,context: telegram.ext.ContextTypes.DEFAULT_TYPE, delete_f
             if len(keylist) != 0:
                 for items in keylist:
                     dct.pop(items)
-
+        print("finished")

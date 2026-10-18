@@ -23,8 +23,10 @@ app.build()
 
 tracked_msg = {}
 
+
 async def creatett(application: tge.Application) -> None:
-    asyncio.create_task(methods.live_msg(tracked_msg , tge.ContextTypes.DEFAULT_TYPE , 1))
+    cont = tge.ContextTypes.DEFAULT_TYPE
+    asyncio.create_task(methods.live_msg(tracked_msg , cont , 1))
 
 app = tge.ApplicationBuilder().token(token).post_init(creatett).build()
 
