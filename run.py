@@ -96,11 +96,8 @@ async def optin(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYPE
     if await sec_check(update , context , update.effective_chat.id):
         if await checkopt(update , context) == 1:
             msg = await context.bot.send_message(text="Додаю 😄" ,chat_id=chatid)
-<<<<<<< HEAD
             tracked_msg.append(msg.id)
-=======
             methods.addmsg(msg.id , tracked_msg)
->>>>>>> edfbdc2 (part1)
             with open("friend.json" , "r" , encoding="utf-8") as f:
                friends = json.load(f)
                friends[update.effective_sender.id] = update.effective_sender.username
@@ -125,13 +122,10 @@ async def optout(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYP
 async def poll(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYPE):
     if await sec_check(update , context , update.effective_chat.id):
         await call(update , context)
-<<<<<<< HEAD
         msg = await context.bot.send_poll(chat_id=chatid , is_anonymous=True, question="Хто грать? 📢📢📢" , options=["+","-"])
         tracked_msg.append(msg.id)
-=======
         msg = await context.bot.send_poll(chat_id=chatid , question="Хто грать? 📢📢📢" , options=["+","-"])
         methods.addmsg(msg.id , tracked_msg)
->>>>>>> edfbdc2 (part1)
 
 app.add_handler(tge.CommandHandler("co" , checkopt))
 app.add_handler(tge.CommandHandler("ac" , autocleanup))
