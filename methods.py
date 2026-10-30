@@ -15,13 +15,13 @@ def addmsg(id,dct):
 async def live_msg(dct,context: telegram.ext.ContextTypes.DEFAULT_TYPE, delete_from = 45 , remove_after = 47):
 
      while True:
-        print("starting routine message checkup")
+        print("#################################### starting routine message checkup ###################################" )
         oldtime = int(time.strftime("%H" , time.localtime()))
 
-        await asyncio.sleep(900)
+        await asyncio.sleep(1000)
         
         if len(dct) == 0:
-            print("nothing to check up , skipping")
+            print("automatic clean up report >> nothing to check up , skipping")
             continue
 
         total = int(time.strftime("%H" , time.localtime())) - oldtime
@@ -35,9 +35,9 @@ async def live_msg(dct,context: telegram.ext.ContextTypes.DEFAULT_TYPE, delete_f
                     await context.bot.delete_message(chat_id=data.data.chatid , message_id=key)
                     keylist.append(key)
                 elif value >= remove_after:
-                    print(f"WARNING!!! DELETING {key} EXCEPRION ARISEN value - {value}")
+                    print(f"automatic cleanup report >> WARNING!!! DELETING {key} EXCEPRION ARISEN value - {value}")
                     keylist.append(key)
             if len(keylist) != 0:
                 for items in keylist:
                     dct.pop(items)
-        print("finished")
+        print("automatic cleanup report >> finished")
