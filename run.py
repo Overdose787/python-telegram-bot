@@ -62,10 +62,19 @@ async def call(update: telegram.Update , context: tge.ContextTypes.DEFAULT_TYPE)
     if await sec_check(update , context , update.effective_chat.id):
         parsed=""
         methods.addmsg(update.effective_message.id , tracked_msg)
-        with open("friend.json" , "r" , encoding="utf-8") as f:
-             friends = json.load(f)
-        with open("popular_emojis.txt" , "r") as f:
-             emj = f.read()
+
+        emj = " "
+        friends = {}
+
+
+        try:
+            with open("friend.json" , "r" , encoding="utf-8") as f:
+                friends = json.load(f)
+            with open("popular_emojis.txt" , "r") as f:
+                   emj = f.read()
+        except Exception:
+            print(Exception , " - in emojis thing , most likely its gone")
+
         for items in friends.values():
             rc = random.choice(emj)
             parsed += f"@{items} {rc}"
